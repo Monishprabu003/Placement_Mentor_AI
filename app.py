@@ -376,5 +376,7 @@ if __name__ == '__main__':
     print("  PlacementMentorAI")
     print("  Phase 1: Placement Score Prediction")
     print("  Phase 2: Interview Behaviour Analysis")
-    print("=" * 60)
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    port = int(os.environ.get('PORT', 5001))
+    print(f"🚀 Running on http://localhost:{port}")
+    app.run(host='0.0.0.0', port=port, debug=True)
+
