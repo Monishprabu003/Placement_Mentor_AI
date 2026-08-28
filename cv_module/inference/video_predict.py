@@ -97,8 +97,9 @@ class VideoBehaviourAnalyzer:
             if max_frames and sample_idx >= max_frames:
                 break
             
-            # Run YOLO pose detection
-            results = self.model(frame, verbose=False)
+            # Run YOLO pose detection (use imgsz=320 for fast CPU inference)
+            results = self.model(frame, imgsz=320, verbose=False)
+
             
             if results and len(results) > 0:
                 result = results[0]
@@ -256,5 +257,23 @@ class VideoBehaviourAnalyzer:
         
         out.release()
         print(f"Output video saved to: {output_path}")
-        
-        return str(output_path)
+
+        # Convert to web-compatible H.264 (avc1 / yuv420p) for browser video tag support
+        web_output_path = output_dir / f'web_analyzed_video_{timestamp}.mp4'
+        try:
+            import subprocess
+            cmd = [
+                'ffmpeg', '-y',
+                '-i', str(output_path),
+                '-vcodec', 'libx264',
+                '-pix_fmt', 'yuv420p',
+                '-acodec', 'aac',
+                str(web_output_path)
+            ]
+            subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+            print(f"Web-compatible video saved to: {web_output_path}")
+            return str(web_output_path)
+        except Exception as e:
+            print(f"ffmpeg conversion fallback (using original): {e}")
+            return str(output_path)
+
