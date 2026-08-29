@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.so
+
+# Virtual Environments
+venv/
+env/
+.venv/
+.env/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# ML Model (large binary - regenerate with train_model.py)
+model.pkl
+
+# Database (auto-generated)
+users.db
+*.db
+*.sqlite
+
+# Uploaded videos (user uploads)
+uploads/
+cv_module/outputs/
+
+# Output videos
+*.mp4
+*.avi
+*.mov
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Coverage
+.coverage
+htmlcov/

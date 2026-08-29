@@ -20,3 +20,7 @@ torchvision>=0.15.2
 
 # Image Processing
 Pillow>=10.0.0
+
+# Authentication & CORS
+PyJWT>=2.8.0
+flask-cors>=4.0.0
