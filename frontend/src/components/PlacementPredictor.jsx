@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
-import { BrainCircuit, Sparkles, AlertTriangle, CheckCircle2, BookOpen, UserCheck, ArrowRight, Loader2 } from 'lucide-react';
-import MetricCard from './MetricCard';
+import { BrainCircuit, Sparkles, AlertTriangle, CheckCircle2, BookOpen, UserCheck, ArrowRight, Loader2, RotateCcw } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function PlacementPredictor({ onScoreCalculated }) {
   const { authHeaders } = useAuth();
   const [formData, setFormData] = useState({
-    CGPA: 0,
-    Python_Skill: 0,
-    Java_Skill: 0,
-    SQL_Skill: 0,
-    DSA_Skill: 0,
-    Web_Development_Skill: 0,
-    Cloud_Skill: 0,
-    ML_Skill: 0,
-    Cybersecurity_Skill: 0,
-    Aptitude_Score: 0,
-    Communication_Skill: 0,
-    Problem_Solving_Skill: 0,
-    Confidence_Level: 0,
-    Projects_Count: 0,
-    Certifications_Count: 0,
+    CGPA: 7.5,
+    Python_Skill: 7,
+    Java_Skill: 6,
+    SQL_Skill: 7,
+    DSA_Skill: 7,
+    Web_Development_Skill: 6,
+    Cloud_Skill: 5,
+    ML_Skill: 5,
+    Cybersecurity_Skill: 4,
+    Aptitude_Score: 75,
+    Communication_Skill: 7,
+    Problem_Solving_Skill: 7,
+    Confidence_Level: 7,
+    Projects_Count: 3,
+    Certifications_Count: 2,
   });
 
   const [loading, setLoading] = useState(false);
@@ -95,14 +94,14 @@ export default function PlacementPredictor({ onScoreCalculated }) {
     { key: 'DSA_Skill', label: 'Data Structures & Algorithms', min: 0, max: 10, step: 1, category: 'Core Engineering' },
     { key: 'Python_Skill', label: 'Python Programming', min: 0, max: 10, step: 1, category: 'Core Engineering' },
     { key: 'Java_Skill', label: 'Java OOP Skill', min: 0, max: 10, step: 1, category: 'Core Engineering' },
-    { key: 'SQL_Skill', label: 'SQL & Relational DBs', min: 0, max: 10, step: 1, category: 'Core Engineering' },
-    { key: 'Web_Development_Skill', label: 'Full Stack Web Development', min: 0, max: 10, step: 1, category: 'Domain Specialties' },
-    { key: 'Cloud_Skill', label: 'Cloud & DevOps (AWS/Azure)', min: 0, max: 10, step: 1, category: 'Domain Specialties' },
+    { key: 'SQL_Skill', label: 'SQL & Databases', min: 0, max: 10, step: 1, category: 'Core Engineering' },
+    { key: 'Web_Development_Skill', label: 'Full Stack Web Dev', min: 0, max: 10, step: 1, category: 'Domain Specialties' },
+    { key: 'Cloud_Skill', label: 'Cloud & DevOps', min: 0, max: 10, step: 1, category: 'Domain Specialties' },
     { key: 'ML_Skill', label: 'Machine Learning & AI', min: 0, max: 10, step: 1, category: 'Domain Specialties' },
     { key: 'Cybersecurity_Skill', label: 'Cybersecurity & Networks', min: 0, max: 10, step: 1, category: 'Domain Specialties' },
     { key: 'Communication_Skill', label: 'Communication Skill', min: 0, max: 10, step: 1, category: 'Soft Skills & Portfolio' },
     { key: 'Problem_Solving_Skill', label: 'Problem Solving & Logic', min: 0, max: 10, step: 1, category: 'Soft Skills & Portfolio' },
-    { key: 'Confidence_Level', label: 'Self Confidence Level', min: 0, max: 10, step: 1, category: 'Soft Skills & Portfolio' },
+    { key: 'Confidence_Level', label: 'Confidence Level', min: 0, max: 10, step: 1, category: 'Soft Skills & Portfolio' },
     { key: 'Projects_Count', label: 'Completed Projects', min: 0, max: 15, step: 1, category: 'Soft Skills & Portfolio' },
     { key: 'Certifications_Count', label: 'Verified Certifications', min: 0, max: 10, step: 1, category: 'Soft Skills & Portfolio' },
   ];
@@ -112,44 +111,44 @@ export default function PlacementPredictor({ onScoreCalculated }) {
   return (
     <div className="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      {/* Header */}
-      <div className="mb-10 text-center sm:text-left flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+      {/* Header & Preset Selector */}
+      <div className="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 pb-6 border-b border-slate-200">
         <div>
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-3">
-            <BrainCircuit className="w-4 h-4 text-indigo-400" />
-            <span>Phase 1 Evaluation</span>
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-semibold mb-2">
+            <BrainCircuit className="w-3.5 h-3.5 text-[#635BFF]" />
+            <span>Phase 1 Evaluation Engine</span>
           </div>
-          <h2 className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             Academic & Technical Skill Predictor
           </h2>
-          <p className="mt-2 text-slate-400 max-w-2xl text-sm sm:text-base">
-            Calibrated Random Forest Regressor trained on 2,000+ candidate data points for highly accurate, realistic placement probability.
+          <p className="mt-1 text-slate-600 text-sm max-w-2xl">
+            Calibrated Random Forest Regressor trained on 2,000+ placement records to forecast hiring probability.
           </p>
         </div>
 
         {/* Quick Presets */}
-        <div className="flex items-center space-x-2 bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800 text-xs">
-          <span className="text-slate-500 px-2 font-mono uppercase text-[10px]">Presets:</span>
+        <div className="flex items-center space-x-1.5 bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm text-xs">
+          <span className="text-slate-400 px-2 font-medium">Presets:</span>
           <button
             type="button"
             onClick={() => loadPreset('zero')}
-            className="px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-rose-500/20 hover:text-rose-300 text-slate-300 transition-all font-medium"
+            className="px-2.5 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium transition-colors border border-slate-200/60"
           >
-            All Zeros
+            Reset
           </button>
           <button
             type="button"
             onClick={() => loadPreset('average')}
-            className="px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-cyan-500/20 hover:text-cyan-300 text-slate-300 transition-all font-medium"
+            className="px-2.5 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium transition-colors border border-slate-200/60"
           >
             Average
           </button>
           <button
             type="button"
             onClick={() => loadPreset('elite')}
-            className="px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-emerald-500/20 hover:text-emerald-300 text-slate-300 transition-all font-medium"
+            className="px-2.5 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold transition-colors border border-indigo-100"
           >
-            Elite (Top Tier)
+            Elite (90%+)
           </button>
         </div>
       </div>
@@ -158,21 +157,25 @@ export default function PlacementPredictor({ onScoreCalculated }) {
         
         {/* Form Column */}
         <div className="lg:col-span-7 space-y-6">
-          <form onSubmit={handleSubmit} className="glass-panel p-6 sm:p-8 rounded-3xl space-y-8">
+          <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-card space-y-8">
             
             {categories.map((cat) => (
               <div key={cat} className="space-y-4">
-                <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-2">
-                  {cat}
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                    {cat}
+                  </h3>
+                  <span className="text-[11px] text-slate-400 font-medium">Scale 0–10</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
                   {skillFields
                     .filter((f) => f.category === cat)
                     .map((field) => (
-                      <div key={field.key} className="space-y-2">
-                        <div className="flex justify-between items-center text-xs font-semibold text-slate-300">
-                          <label htmlFor={field.key}>{field.label}</label>
-                          <span className="font-mono text-indigo-400 font-bold bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
+                      <div key={field.key} className="space-y-1.5 bg-slate-50/50 p-3 rounded-xl border border-slate-100">
+                        <div className="flex justify-between items-center text-xs font-semibold text-slate-700">
+                          <label htmlFor={field.key} className="cursor-pointer">{field.label}</label>
+                          <span className="font-mono font-bold text-slate-900 bg-white px-2 py-0.5 rounded-md border border-slate-200 shadow-xs">
                             {formData[field.key]}
                           </span>
                         </div>
@@ -184,7 +187,7 @@ export default function PlacementPredictor({ onScoreCalculated }) {
                           step={field.step}
                           value={formData[field.key]}
                           onChange={(e) => handleInputChange(field.key, e.target.value)}
-                          className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500 hover:accent-cyan-400 transition-all"
+                          className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer"
                         />
                       </div>
                     ))}
@@ -195,16 +198,16 @@ export default function PlacementPredictor({ onScoreCalculated }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 text-white font-bold text-base shadow-xl shadow-indigo-600/30 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center space-x-3 disabled:opacity-50"
+              className="w-full py-4 rounded-xl bg-[#635BFF] hover:bg-[#5349E0] text-white font-semibold text-sm shadow-sm hover:shadow-md transition-all flex items-center justify-center space-x-2.5 disabled:opacity-50"
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin" />
                   <span>Evaluating Random Forest ML Model...</span>
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-5 h-5" />
+                  <Sparkles className="w-4 h-4" />
                   <span>Calculate Placement Score</span>
                 </>
               )}
@@ -215,8 +218,8 @@ export default function PlacementPredictor({ onScoreCalculated }) {
         {/* Results Column */}
         <div className="lg:col-span-5 space-y-6">
           {error && (
-            <div className="p-5 rounded-2xl bg-rose-950/40 border border-rose-500/30 text-rose-300 flex items-start space-x-3 text-sm">
-              <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+            <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 flex items-start space-x-3 text-sm">
+              <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
               <div>{error}</div>
             </div>
           )}
@@ -225,75 +228,80 @@ export default function PlacementPredictor({ onScoreCalculated }) {
             <div className="space-y-6">
               
               {/* Score Display Card */}
-              <div className="glass-panel p-8 rounded-3xl border-indigo-500/30 text-center relative overflow-hidden bg-gradient-to-b from-indigo-900/20 via-slate-900/60 to-slate-950">
-                <div className="absolute top-0 right-0 p-3">
-                  <span className={`text-xs font-mono px-3 py-1 rounded-full border font-bold ${
-                    result.prediction >= 70 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
-                    result.prediction >= 50 ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' :
-                    result.prediction >= 35 ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
-                    'bg-rose-500/10 text-rose-400 border-rose-500/20'
+              <div className="bg-white p-7 rounded-2xl border border-slate-200 shadow-card text-center relative overflow-hidden">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Phase 1 Result
+                  </span>
+                  <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${
+                    result.prediction >= 70 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+                    result.prediction >= 50 ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                    result.prediction >= 35 ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                    'bg-rose-50 text-rose-700 border-rose-200'
                   }`}>
                     {result.status}
                   </span>
                 </div>
-
                 
-                <p className="text-xs font-mono uppercase tracking-widest text-slate-400 mb-2">Phase 1 Placement Score</p>
-                
-                <div className="my-4 inline-flex items-center justify-center w-36 h-36 rounded-full bg-gradient-to-tr from-indigo-600 to-cyan-400 p-[3px] shadow-2xl shadow-indigo-500/30">
-                  <div className="w-full h-full bg-slate-950 rounded-full flex flex-col items-center justify-center">
-                    <span className="text-4xl font-extrabold text-white">{result.prediction}</span>
-                    <span className="text-xs text-slate-400 font-mono">/ 100</span>
+                {/* Circular Score Highlight */}
+                <div className="my-5 inline-flex items-center justify-center w-36 h-36 rounded-full bg-indigo-50 border-4 border-indigo-100 p-2 shadow-inner">
+                  <div className="w-full h-full bg-white rounded-full flex flex-col items-center justify-center shadow-sm border border-slate-100">
+                    <span className="text-4xl font-extrabold text-slate-900">{result.prediction}%</span>
+                    <span className="text-[11px] text-slate-400 font-medium">Readiness</span>
                   </div>
                 </div>
 
-                <div className="mt-4 p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-center space-x-2 text-sm text-indigo-300 font-medium">
-                  <UserCheck className="w-4 h-4 text-cyan-400" />
-                  <span>Recommended Role: <strong className="text-white">{result.role}</strong></span>
+                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center space-x-2 text-xs font-medium text-slate-700">
+                  <UserCheck className="w-4 h-4 text-[#635BFF]" />
+                  <span>Recommended Role: <strong className="text-slate-900 font-semibold">{result.role}</strong></span>
                 </div>
               </div>
 
               {/* Weak Areas Card */}
-              <div className="glass-panel p-6 rounded-3xl border-amber-500/20">
-                <h4 className="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center space-x-2 mb-4">
-                  <AlertTriangle className="w-4 h-4" />
-                  <span>Identified Skill Gaps</span>
-                </h4>
-                <ul className="space-y-2">
-                  {result.weak_areas.map((area, idx) => (
-                    <li key={idx} className="text-xs text-slate-300 flex items-start space-x-2 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></span>
-                      <span>{area}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {result.weak_areas && result.weak_areas.length > 0 && (
+                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-card space-y-3">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-amber-700 flex items-center space-x-2">
+                    <AlertTriangle className="w-4 h-4 text-amber-500" />
+                    <span>Identified Skill Gaps</span>
+                  </h4>
+                  <ul className="space-y-2">
+                    {result.weak_areas.map((area, idx) => (
+                      <li key={idx} className="text-xs text-slate-700 flex items-start space-x-2.5 bg-amber-50/50 p-3 rounded-xl border border-amber-100">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
+                        <span>{area}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* Learning Recommendations */}
-              <div className="glass-panel p-6 rounded-3xl border-cyan-500/20">
-                <h4 className="text-sm font-bold text-cyan-400 uppercase tracking-wider flex items-center space-x-2 mb-4">
-                  <BookOpen className="w-4 h-4" />
-                  <span>Recommended Action Plan</span>
-                </h4>
-                <div className="space-y-2.5">
-                  {result.recommendations.map((rec, idx) => (
-                    <div key={idx} className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-start space-x-3 text-xs text-slate-200">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                      <span>{rec}</span>
-                    </div>
-                  ))}
+              {result.recommendations && result.recommendations.length > 0 && (
+                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-card space-y-3">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#635BFF] flex items-center space-x-2">
+                    <BookOpen className="w-4 h-4 text-[#635BFF]" />
+                    <span>Recommended Action Plan</span>
+                  </h4>
+                  <div className="space-y-2.5">
+                    {result.recommendations.map((rec, idx) => (
+                      <div key={idx} className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-start space-x-3 text-xs text-slate-700">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                        <span>{rec}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
             </div>
           ) : (
-            <div className="glass-panel p-12 rounded-3xl text-center border-dashed border-slate-800 flex flex-col items-center justify-center min-h-[400px]">
-              <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-4">
-                <BrainCircuit className="w-8 h-8 text-indigo-400" />
+            <div className="bg-white p-10 rounded-2xl text-center border-2 border-dashed border-slate-200 shadow-card flex flex-col items-center justify-center min-h-[420px]">
+              <div className="w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mb-4 text-[#635BFF]">
+                <BrainCircuit className="w-7 h-7" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">No Prediction Executed Yet</h3>
-              <p className="text-xs text-slate-400 max-w-xs">
-                Adjust the candidate parameters on the left and click "Calculate Placement Score" to launch Phase 1 evaluation.
+              <h3 className="text-base font-bold text-slate-900 mb-1">No Prediction Executed Yet</h3>
+              <p className="text-xs text-slate-500 max-w-xs leading-relaxed">
+                Adjust candidate parameters on the left and click "Calculate Placement Score" to run Phase 1 evaluation.
               </p>
             </div>
           )}

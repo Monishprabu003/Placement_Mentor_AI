@@ -1,79 +1,98 @@
-import React from 'react';
-import { BrainCircuit, Sparkles, LayoutDashboard, Video, Award, LogOut, User } from 'lucide-react';
+import React, { useState } from 'react';
+import { BrainCircuit, LayoutDashboard, Video, Award, LogOut, Menu, X, Sparkles } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Navbar({ activeTab, setActiveTab }) {
   const { user, logout } = useAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
     { id: 'dashboard', label: 'Overview', icon: LayoutDashboard },
     { id: 'placement', label: 'Phase 1: Academic & Skills', icon: BrainCircuit },
-    { id: 'interview', label: 'Phase 2: AI Interview Studio', icon: Video },
+    { id: 'interview', label: 'Phase 2: Posture & Behavior', icon: Video },
     { id: 'final', label: 'Final Score Engine', icon: Award },
   ];
 
+  const handleNavClick = (id) => {
+    setActiveTab(id);
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-50 glass-panel border-b border-slate-800/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           
-          {/* Logo & Brand */}
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('dashboard')}>
-            <div className="relative flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-cyan-500 p-[1px] shadow-lg shadow-indigo-500/20">
-              <div className="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center">
-                <BrainCircuit className="w-6 h-6 text-cyan-400 animate-pulse-slow" />
-              </div>
+          {/* Brand Logo */}
+          <div 
+            className="flex items-center space-x-3 cursor-pointer select-none group" 
+            onClick={() => handleNavClick('dashboard')}
+          >
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100/80 text-[#635BFF] shadow-sm group-hover:scale-105 transition-transform">
+              <BrainCircuit className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="font-extrabold text-xl tracking-tight text-white">Placement<span className="text-gradient">Mentor</span></span>
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">AI 2.0</span>
+                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900">
+                  Placement<span className="text-[#635BFF]">Mentor</span>
+                </span>
+                <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-100">
+                  AI Platform
+                </span>
               </div>
-              <p className="text-xs text-slate-400 font-medium">Dual-Engine Readiness Evaluator</p>
+              <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
+                Dual-Engine Readiness Evaluator
+              </p>
             </div>
           </div>
 
-          {/* Navigation Items */}
-          <nav className="hidden md:flex items-center space-x-1 bg-slate-900/60 p-1.5 rounded-2xl border border-slate-800/60">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-1 bg-slate-50/80 p-1.5 rounded-2xl border border-slate-200/70">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
               return (
                 <button
                   key={item.id}
-                  onClick={() => setActiveTab(item.id)}
-                  className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                  onClick={() => handleNavClick(item.id)}
+                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 ${
                     isActive
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-600/30'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                      ? 'bg-white text-[#635BFF] shadow-sm border border-slate-200/80'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/60'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#635BFF]' : 'text-slate-400'}`} />
                   <span>{item.label}</span>
                 </button>
               );
             })}
           </nav>
 
-          {/* User Profile & Logout */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <div className="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          {/* Desktop Right Controls (Status & Profile) */}
+          <div className="hidden lg:flex items-center space-x-3">
+            {/* Status Indicator */}
+            <div className="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-medium">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
               <span>YOLO26-Pose Active</span>
             </div>
 
             {user && (
-              <div className="flex items-center space-x-3">
-                <div className="flex items-center space-x-2 px-3 py-2 rounded-xl bg-slate-900/80 border border-slate-800">
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xs font-bold text-white uppercase">
-                    {user.name.charAt(0)}
+              <div className="flex items-center space-x-2 pl-2 border-l border-slate-200">
+                <div className="flex items-center space-x-2 px-2.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-800">
+                  <div className="w-6 h-6 rounded-full bg-indigo-100 text-[#635BFF] flex items-center justify-center text-xs font-bold uppercase">
+                    {user.name ? user.name.charAt(0) : 'U'}
                   </div>
-                  <span className="text-xs font-semibold text-slate-300 max-w-[100px] truncate">{user.name}</span>
+                  <span className="text-xs font-semibold text-slate-700 max-w-[110px] truncate">
+                    {user.name || user.email}
+                  </span>
                 </div>
 
                 <button
                   onClick={logout}
-                  className="p-2 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-rose-400 hover:border-rose-500/30 transition-all"
+                  className="p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 hover:border-rose-200 transition-colors shadow-sm"
                   title="Sign Out"
                 >
                   <LogOut className="w-4 h-4" />
@@ -82,8 +101,77 @@ export default function Navbar({ activeTab, setActiveTab }) {
             )}
           </div>
 
+          {/* Mobile Menu Toggle Button */}
+          <div className="flex items-center space-x-2 md:hidden">
+            {user && (
+              <button
+                onClick={logout}
+                className="p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                title="Sign Out"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            )}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-colors"
+              aria-label="Toggle navigation"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+
         </div>
       </div>
+
+      {/* Mobile Dropdown Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-5 space-y-2 shadow-lg">
+          {/* Status on mobile */}
+          <div className="flex items-center justify-between px-3 py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium mb-3">
+            <span className="flex items-center space-x-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span>Vision Engine</span>
+            </span>
+            <span className="font-semibold text-[11px]">YOLO26-Pose Ready</span>
+          </div>
+
+          <div className="space-y-1">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleNavClick(item.id)}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
+                    isActive
+                      ? 'bg-indigo-50 text-[#635BFF] border border-indigo-100'
+                      : 'text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  <Icon className={`w-5 h-5 ${isActive ? 'text-[#635BFF]' : 'text-slate-400'}`} />
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {user && (
+            <div className="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between px-2">
+              <div className="flex items-center space-x-2">
+                <div className="w-7 h-7 rounded-full bg-indigo-100 text-[#635BFF] flex items-center justify-center text-xs font-bold uppercase">
+                  {user.name ? user.name.charAt(0) : 'U'}
+                </div>
+                <div className="text-xs">
+                  <div className="font-semibold text-slate-800">{user.name}</div>
+                  <div className="text-[11px] text-slate-400">{user.email}</div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </header>
   );
 }

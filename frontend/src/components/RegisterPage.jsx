@@ -39,113 +39,112 @@ export default function RegisterPage({ onSwitchToLogin }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] bg-gradient-to-br from-purple-600/25 via-indigo-600/15 to-emerald-500/15 blur-[120px] rounded-full pointer-events-none" />
+    <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-4 sm:p-6 relative">
+      <div className="w-full max-w-md relative z-10 space-y-6">
 
-      <div className="w-full max-w-md relative z-10">
-
-        {/* Logo */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-emerald-500 p-[2px] shadow-2xl shadow-purple-500/30 mb-5">
-            <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-              <BrainCircuit className="w-8 h-8 text-emerald-400" />
-            </div>
+        {/* Brand Header */}
+        <div className="text-center space-y-3">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 text-[#635BFF] shadow-sm">
+            <BrainCircuit className="w-6 h-6" />
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">
-            Create Your <span className="text-gradient">Account</span>
-          </h1>
-          <p className="text-sm text-slate-400 mt-2">Join PlacementMentorAI and start your readiness journey</p>
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              Create an <span className="text-[#635BFF]">Account</span>
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              Start your placement and AI interview readiness journey
+            </p>
+          </div>
         </div>
 
         {/* Success State */}
         {success ? (
-          <div className="glass-panel p-8 rounded-3xl text-center space-y-4">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 mx-auto">
-              <CheckCircle2 className="w-8 h-8 text-emerald-400" />
+          <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-card text-center space-y-4">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 mx-auto">
+              <CheckCircle2 className="w-7 h-7" />
             </div>
-            <h2 className="text-xl font-bold text-white">Account Created!</h2>
-            <p className="text-sm text-slate-400">Redirecting to login...</p>
+            <h2 className="text-lg font-bold text-slate-900">Account Created Successfully!</h2>
+            <p className="text-xs text-slate-500">Redirecting you to login...</p>
           </div>
         ) : (
           /* Register Card */
-          <form onSubmit={handleSubmit} className="glass-panel p-8 rounded-3xl space-y-5">
+          <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-card space-y-4">
 
             {error && (
-              <div className="p-4 rounded-xl bg-rose-950/50 border border-rose-500/30 text-rose-300 text-sm flex items-center space-x-2">
-                <AlertTriangle className="w-4 h-4 shrink-0" />
+              <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center space-x-2">
+                <AlertTriangle className="w-4 h-4 shrink-0 text-rose-600" />
                 <span>{error}</span>
               </div>
             )}
 
             {/* Name */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Full Name</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">Full Name</label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="John Doe"
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#635BFF] focus:ring-2 focus:ring-indigo-100 transition-all"
                 />
               </div>
             </div>
 
             {/* Email */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Email Address</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">Email Address</label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@university.edu"
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#635BFF] focus:ring-2 focus:ring-indigo-100 transition-all"
                 />
               </div>
             </div>
 
             {/* Password */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Password</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">Password</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Min. 6 characters"
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                  placeholder="Minimum 6 characters"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#635BFF] focus:ring-2 focus:ring-indigo-100 transition-all"
                 />
               </div>
             </div>
 
             {/* Confirm Password */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Confirm Password</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">Confirm Password</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   type="password"
                   required
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Re-enter password"
-                  className={`w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-900/80 border text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 transition-all ${
+                  className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 transition-all ${
                     confirmPassword && confirmPassword !== password
-                      ? 'border-rose-500/50 focus:ring-rose-500/20'
-                      : 'border-slate-800 focus:border-indigo-500/50 focus:ring-indigo-500/20'
+                      ? 'border-rose-300 focus:ring-rose-100'
+                      : 'border-slate-200 focus:border-[#635BFF] focus:ring-indigo-100'
                   }`}
                 />
               </div>
               {confirmPassword && confirmPassword !== password && (
-                <p className="text-xs text-rose-400 mt-1">Passwords do not match</p>
+                <p className="text-xs text-rose-600 mt-1">Passwords do not match</p>
               )}
             </div>
 
@@ -153,16 +152,16 @@ export default function RegisterPage({ onSwitchToLogin }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-emerald-500 text-white font-bold shadow-xl shadow-purple-600/30 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+              className="w-full py-3.5 rounded-xl bg-[#635BFF] hover:bg-[#5349E0] text-white font-semibold text-sm shadow-sm hover:shadow-md transition-all flex items-center justify-center space-x-2 disabled:opacity-50 mt-2"
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  <span>Creating Account...</span>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Creating account...</span>
                 </>
               ) : (
                 <>
-                  <UserPlus className="w-5 h-5" />
+                  <UserPlus className="w-4 h-4" />
                   <span>Create Account</span>
                 </>
               )}
@@ -172,9 +171,9 @@ export default function RegisterPage({ onSwitchToLogin }) {
             <button
               type="button"
               onClick={onSwitchToLogin}
-              className="w-full py-3.5 rounded-xl glass-panel-hover border border-slate-800 text-slate-300 font-semibold text-sm flex items-center justify-center space-x-2 hover:border-indigo-500/40 transition-all"
+              className="w-full py-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-xs transition-all"
             >
-              <ArrowLeft className="w-4 h-4 text-indigo-400" />
+              <ArrowLeft className="w-4 h-4 text-slate-400" />
               <span>Already have an account? Sign In</span>
             </button>
 

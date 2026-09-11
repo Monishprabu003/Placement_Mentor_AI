@@ -21,7 +21,7 @@ function AuthenticatedApp() {
     : null;
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-slate-100 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col justify-between">
       <div>
         <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
@@ -61,13 +61,18 @@ function AuthenticatedApp() {
       </div>
 
       {/* Footer */}
-      <footer className="glass-panel border-t border-slate-800/80 py-8 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="bg-white border-t border-slate-200/80 py-8 text-xs text-slate-500">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2">
-            <span className="font-extrabold text-white">Placement<span className="text-gradient">Mentor</span> AI</span>
-            <span>– Powered by Random Forest & YOLO26-Pose</span>
+            <span className="font-extrabold text-slate-900">
+              Placement<span className="text-[#635BFF]">Mentor</span> AI
+            </span>
+            <span className="text-slate-400">|</span>
+            <span className="text-slate-600">Dual-Engine ML (Random Forest + YOLO26-Pose)</span>
           </div>
-          <div>© {new Date().getFullYear()} PlacementMentorAI. All rights reserved.</div>
+          <div className="text-slate-400">
+            © {new Date().getFullYear()} PlacementMentor AI. All rights reserved.
+          </div>
         </div>
       </footer>
     </div>
@@ -81,16 +86,17 @@ function AppContent() {
   // Show loading spinner while checking token on mount
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0B0F19] flex items-center justify-center">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-cyan-500 p-[2px] shadow-2xl shadow-indigo-500/40">
-            <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-              <BrainCircuit className="w-8 h-8 text-cyan-400 animate-pulse" />
-            </div>
+      <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-4">
+        <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xl flex flex-col items-center space-y-4 max-w-sm w-full text-center">
+          <div className="w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-[#635BFF] shadow-sm">
+            <BrainCircuit className="w-7 h-7 animate-pulse" />
           </div>
-          <div className="flex items-center space-x-2 text-slate-400 text-sm">
-            <Loader2 className="w-4 h-4 animate-spin" />
-            <span>Initializing PlacementMentorAI...</span>
+          <div className="space-y-1">
+            <h3 className="font-bold text-slate-900 text-base">PlacementMentor AI</h3>
+            <div className="flex items-center justify-center space-x-2 text-slate-500 text-xs">
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-[#635BFF]" />
+              <span>Initializing secure session...</span>
+            </div>
           </div>
         </div>
       </div>
