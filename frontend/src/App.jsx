@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import Navbar from './components/Navbar';
@@ -14,17 +15,19 @@ function AuthenticatedApp() {
   const [placementScore, setPlacementScore] = useState(null);
   const [behaviourScore, setBehaviourScore] = useState(null);
 
-  const finalScore = placementScore && behaviourScore
+  const finalScore = placementScore !== null && behaviourScore !== null
     ? Math.round(((placementScore * 0.7) + (behaviourScore * 0.3)) * 10) / 10
-    : placementScore
+    : placementScore !== null
     ? Math.round(placementScore * 0.7 * 10) / 10
     : null;
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
       <div>
+        {/* Persistent Top Navigation Bar */}
         <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
+        {/* Main Content Area */}
         <main className="pb-16">
           {activeTab === 'dashboard' && (
             <HeroSection
@@ -60,9 +63,9 @@ function AuthenticatedApp() {
         </main>
       </div>
 
-      {/* Footer */}
+      {/* Global Footer */}
       <footer className="bg-white border-t border-slate-200/80 py-8 text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="app-container flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2">
             <span className="font-extrabold text-slate-900">
               Placement<span className="text-[#635BFF]">Mentor</span> AI
@@ -81,9 +84,9 @@ function AuthenticatedApp() {
 
 function AppContent() {
   const { user, loading } = useAuth();
-  const [authMode, setAuthMode] = useState('login'); // 'login' | 'register'
+  const [publicView, setPublicView] = useState('landing'); // 'landing' | 'login' | 'register'
 
-  // Show loading spinner while checking token on mount
+  // Show loading spinner while restoring session
   if (loading) {
     return (
       <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-4">
@@ -95,7 +98,7 @@ function AppContent() {
             <h3 className="font-bold text-slate-900 text-base">PlacementMentor AI</h3>
             <div className="flex items-center justify-center space-x-2 text-slate-500 text-xs">
               <Loader2 className="w-3.5 h-3.5 animate-spin text-[#635BFF]" />
-              <span>Initializing secure session...</span>
+              <span>Initializing session...</span>
             </div>
           </div>
         </div>
@@ -103,15 +106,34 @@ function AppContent() {
     );
   }
 
-  // Not authenticated — show login or register
+  // Unauthenticated — show landing, login, or register
   if (!user) {
-    if (authMode === 'register') {
-      return <RegisterPage onSwitchToLogin={() => setAuthMode('login')} />;
+    if (publicView === 'login') {
+      return (
+        <LoginPage
+          onSwitchToRegister={() => setPublicView('register')}
+          onBackToLanding={() => setPublicView('landing')}
+        />
+      );
     }
-    return <LoginPage onSwitchToRegister={() => setAuthMode('register')} />;
+    if (publicView === 'register') {
+      return (
+        <RegisterPage
+          onSwitchToLogin={() => setPublicView('login')}
+          onBackToLanding={() => setPublicView('landing')}
+        />
+      );
+    }
+    // Default public landing page
+    return (
+      <LandingPage
+        onLoginClick={() => setPublicView('login')}
+        onGetStartedClick={() => setPublicView('register')}
+      />
+    );
   }
 
-  // Authenticated — show main app
+  // Authenticated — show main application
   return <AuthenticatedApp />;
 }
 

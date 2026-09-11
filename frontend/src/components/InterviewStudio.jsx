@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Video, Image as ImageIcon, UploadCloud, Loader2, Activity, Eye, AlertCircle, Sparkles, CheckCircle2, FileVideo, ShieldCheck } from 'lucide-react';
+import { Video, Image as ImageIcon, UploadCloud, Loader2, Activity, Eye, AlertCircle, Sparkles, CheckCircle2, ShieldCheck, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function InterviewStudio({ onScoreCalculated }) {
@@ -79,34 +79,31 @@ export default function InterviewStudio({ onScoreCalculated }) {
   };
 
   return (
-    <div className="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      {/* Header */}
-      <div className="mb-8 pb-6 border-b border-slate-200">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold mb-2">
-          <Video className="w-3.5 h-3.5 text-blue-600" />
-          <span>Phase 2 Evaluation Engine</span>
-        </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-          AI Interview Posture & Non-Verbal Studio
-        </h2>
-        <p className="mt-1 text-slate-600 text-sm max-w-2xl">
-          Upload mock interview recordings. <span className="font-semibold text-slate-800">YOLO26-Pose</span> tracks 17 skeletal keypoints to analyze posture alignment, head stability, and eye focus.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div className="py-8">
+      <div className="app-container">
         
-        {/* Upload Column */}
-        <div className="lg:col-span-6 space-y-6">
-          
-          {/* Mode Selector Tabs */}
-          <div className="flex bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm">
+        {/* Header */}
+        <div className="mb-8 pb-6 border-b border-slate-200">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold mb-2">
+            <Video className="w-3.5 h-3.5 text-blue-600" />
+            <span>Phase 2 Evaluation Engine</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            AI Interview Posture & Non-Verbal Studio
+          </h2>
+          <p className="mt-1 text-slate-600 text-sm max-w-2xl">
+            Upload mock interview recordings. <span className="font-semibold text-slate-800">YOLO26-Pose</span> tracks 17 skeletal keypoints to analyze posture alignment, head stability, and eye focus.
+          </p>
+        </div>
+
+        {/* Mode Selector Tabs */}
+        <div className="mb-8 max-w-md">
+          <div className="flex bg-white p-1.5 rounded-2xl border border-slate-200 shadow-xs">
             <button
-              onClick={() => { setActiveMode('image'); setFile(null); setResult(null); }}
-              className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center space-x-2 transition-all ${
+              onClick={() => { setActiveMode('image'); setFile(null); setPreviewUrl(null); setResult(null); setError(null); }}
+              className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-2 transition-all ${
                 activeMode === 'image'
-                  ? 'bg-indigo-50 text-[#635BFF] border border-indigo-100 shadow-xs'
+                  ? 'bg-indigo-50 text-[#635BFF] border border-indigo-100 shadow-2xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
@@ -114,10 +111,10 @@ export default function InterviewStudio({ onScoreCalculated }) {
               <span>Image Analysis</span>
             </button>
             <button
-              onClick={() => { setActiveMode('video'); setFile(null); setResult(null); }}
-              className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center space-x-2 transition-all ${
+              onClick={() => { setActiveMode('video'); setFile(null); setPreviewUrl(null); setResult(null); setError(null); }}
+              className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-2 transition-all ${
                 activeMode === 'video'
-                  ? 'bg-indigo-50 text-[#635BFF] border border-indigo-100 shadow-xs'
+                  ? 'bg-indigo-50 text-[#635BFF] border border-indigo-100 shadow-2xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
@@ -125,214 +122,165 @@ export default function InterviewStudio({ onScoreCalculated }) {
               <span>Video Analysis</span>
             </button>
           </div>
+        </div>
 
-          {/* Upload Dropzone */}
-          <div className="bg-white p-8 rounded-2xl border-2 border-dashed border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/10 transition-all text-center relative overflow-hidden group cursor-pointer shadow-card">
-            <input
-              type="file"
-              accept={activeMode === 'image' ? 'image/jpeg,image/png' : 'video/mp4,video/avi,video/quicktime'}
-              onChange={handleFileChange}
-              className="absolute inset-0 opacity-0 cursor-pointer z-20 w-full h-full"
-            />
-            
-            <div className="flex flex-col items-center justify-center py-4 relative z-10">
-              <div className="w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mb-3 text-[#635BFF] group-hover:scale-105 transition-transform">
-                <UploadCloud className="w-7 h-7" />
+        {/* Desktop 2-Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          
+          {/* LEFT COLUMN: Upload Area */}
+          <div className="lg:col-span-6 space-y-6 flex flex-col justify-between">
+            <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-card space-y-6 flex-1 flex flex-col justify-between">
+              
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-4 border-b border-slate-100 pb-2">
+                  Upload Interview Media ({activeMode === 'image' ? 'JPG/PNG' : 'MP4/AVI'})
+                </h3>
+
+                {/* Drag & Drop Upload Zone */}
+                <div className="border-2 border-dashed border-slate-200 hover:border-[#635BFF] hover:bg-indigo-50/10 transition-all rounded-2xl p-8 text-center relative cursor-pointer group">
+                  <input
+                    type="file"
+                    accept={activeMode === 'image' ? 'image/jpeg,image/png' : 'video/mp4,video/avi,video/quicktime'}
+                    onChange={handleFileChange}
+                    className="absolute inset-0 opacity-0 cursor-pointer z-20 w-full h-full"
+                  />
+                  
+                  <div className="flex flex-col items-center justify-center space-y-3">
+                    <div className="w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-[#635BFF] group-hover:scale-105 transition-transform">
+                      <UploadCloud className="w-7 h-7" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-slate-800">
+                        {file ? file.name : `Drag & drop ${activeMode} here, or click to browse`}
+                      </h4>
+                      <p className="text-xs text-slate-500 mt-1">
+                        {activeMode === 'image' ? 'Supports JPG, PNG up to 16MB' : 'Supports MP4, AVI up to 100MB (5 FPS analysis)'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-sm font-bold text-slate-800 mb-1">
-                {file ? file.name : `Drop your ${activeMode} here, or click to browse`}
-              </h3>
-              <p className="text-xs text-slate-500 max-w-xs leading-relaxed">
-                {activeMode === 'image'
-                  ? 'Supports JPG, PNG up to 16MB'
-                  : 'Supports MP4, AVI up to 100MB (Analyzes frames at 5 FPS)'}
-              </p>
+
+              {error && (
+                <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center space-x-2">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+                  <span>{error}</span>
+                </div>
+              )}
+
+              {/* Action Button */}
+              <button
+                onClick={handleUpload}
+                disabled={!file || loading}
+                className="w-full py-4 rounded-xl bg-[#635BFF] hover:bg-[#5349E0] text-white font-extrabold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Analyzing Non-Verbal Posture Keypoints...</span>
+                  </>
+                ) : (
+                  <>
+                    <Activity className="w-4 h-4" />
+                    <span>Start AI Posture & Behavior Analysis</span>
+                  </>
+                )}
+              </button>
+
             </div>
           </div>
 
-          {/* Media Preview Box */}
-          {previewUrl && (
-            <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-card space-y-2">
-              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Input Preview</div>
-              {activeMode === 'image' ? (
-                <img src={previewUrl} alt="Preview" className="w-full max-h-64 object-contain rounded-xl bg-slate-900" />
-              ) : (
-                <video src={previewUrl} controls className="w-full max-h-64 rounded-xl bg-slate-900" />
-              )}
-            </div>
-          )}
-
-          {error && (
-            <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center space-x-2">
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
-              <span>{error}</span>
-            </div>
-          )}
-
-          {/* Analyze Action Button */}
-          <button
-            onClick={handleUpload}
-            disabled={!file || loading}
-            className="w-full py-4 rounded-xl bg-[#635BFF] hover:bg-[#5349E0] text-white font-semibold text-sm shadow-sm hover:shadow-md transition-all flex items-center justify-center space-x-2.5 disabled:opacity-50"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin text-white" />
-                <span>Running YOLO26-Pose Analysis...</span>
-              </>
-            ) : (
-              <>
-                <Activity className="w-4 h-4" />
-                <span>Start AI Posture & Behavior Analysis</span>
-              </>
-            )}
-          </button>
-
-        </div>
-
-        {/* Results Column */}
-        <div className="lg:col-span-6 space-y-6">
-          {result ? (
-            <div className="space-y-6">
+          {/* RIGHT COLUMN: Analysis Result Area */}
+          <div className="lg:col-span-6 space-y-6 flex flex-col">
+            <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-card flex-1 flex flex-col justify-between space-y-6">
               
-              {/* Primary Assessment Card */}
-              <div className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-card space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    Behavior Assessment
-                  </span>
-                  <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${getBadgeStyle(result.behaviour)}`}>
-                    {result.behaviour}
-                  </span>
-                </div>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 border-b border-slate-100 pb-2">
+                Analysis & Media Preview Panel
+              </h3>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
-                    <span className="text-xs text-slate-500 font-medium">Confidence Score</span>
-                    <div className="text-2xl font-extrabold text-slate-900 mt-1">
-                      {Math.round((result.confidence_score || 0) * 100)}%
-                    </div>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
-                    <span className="text-xs text-slate-500 font-medium">Posture Score</span>
-                    <div className="text-2xl font-extrabold text-[#635BFF] mt-1">
-                      {result.behaviour_score ? result.behaviour_score.toFixed(1) : '0.0'} / 100
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-xs text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200/80 leading-relaxed">
-                  <strong className="text-slate-900 font-semibold">Summary:</strong> {result.summary}
-                </div>
-              </div>
-
-              {/* Skeleton Visualizer */}
-              {(result.processed_image_path || result.processed_video_path) && (
-                <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-card space-y-3">
-                  <div className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center space-x-2">
-                    <Sparkles className="w-4 h-4 text-[#635BFF]" />
-                    <span>YOLO26-Pose Skeleton Overlay</span>
-                  </div>
-
-                  {result.processed_image_path ? (
-                    <img 
-                      src={result.processed_image_path} 
-                      alt="Processed Pose" 
-                      className="w-full rounded-xl bg-slate-900 border border-slate-200" 
-                    />
+              {/* Preview Media Box */}
+              {previewUrl ? (
+                <div className="rounded-xl overflow-hidden bg-slate-900 border border-slate-200 relative max-h-[260px] flex items-center justify-center">
+                  {activeMode === 'image' ? (
+                    <img src={previewUrl} alt="Preview" className="max-h-[260px] w-auto object-contain" />
                   ) : (
-                    <video 
-                      src={result.processed_video_path} 
-                      controls 
-                      autoPlay 
-                      loop 
-                      className="w-full rounded-xl bg-slate-900 border border-slate-200" 
-                    />
+                    <video src={previewUrl} controls className="max-h-[260px] w-auto object-contain" />
                   )}
                 </div>
-              )}
-
-              {/* Features Breakdown */}
-              {result.features && (
-                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-card space-y-3">
-                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    Non-Verbal Feature Breakdown
-                  </h4>
-                  <div className="grid grid-cols-2 gap-3 text-xs">
-                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex justify-between">
-                      <span className="text-slate-600">Head Tilt</span>
-                      <strong className="text-slate-900">{result.features.head_tilt_angle.toFixed(1)}°</strong>
-                    </div>
-                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex justify-between">
-                      <span className="text-slate-600">Spine Alignment</span>
-                      <strong className="text-slate-900">{result.features.spine_alignment_score.toFixed(1)}%</strong>
-                    </div>
-                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex justify-between">
-                      <span className="text-slate-600">Hand Movement</span>
-                      <strong className="text-slate-900">{result.features.hand_movement_delta.toFixed(1)}%</strong>
-                    </div>
-                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex justify-between">
-                      <span className="text-slate-600">Eye Contact</span>
-                      <strong className="text-slate-900">{result.features.eye_contact_proxy.toFixed(1)}%</strong>
-                    </div>
-                  </div>
+              ) : (
+                <div className="h-[200px] rounded-xl border border-slate-200/80 bg-slate-50 flex flex-col items-center justify-center text-center p-6 text-slate-400">
+                  <Sparkles className="w-8 h-8 text-slate-300 mb-2" />
+                  <span className="text-xs font-semibold text-slate-500">No media selected yet</span>
+                  <span className="text-[11px] text-slate-400 mt-0.5">Media preview will appear here once uploaded</span>
                 </div>
               )}
 
-              {/* Video Distribution */}
-              {result.behaviour_distribution && (
-                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-card space-y-4">
-                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    Behavior Distribution Across Frames
-                  </h4>
+              {/* Result Details */}
+              {result ? (
+                <div className="space-y-5 animate-fade-in pt-2">
                   
-                  <div className="space-y-3">
+                  {/* Top Score Banner */}
+                  <div className="p-4 rounded-xl bg-gradient-to-br from-indigo-50/50 via-white to-blue-50/30 border border-indigo-100 flex items-center justify-between">
                     <div>
-                      <div className="flex justify-between text-xs mb-1 font-semibold">
-                        <span className="text-emerald-700">Confident</span>
-                        <span className="text-slate-900">{Math.round(result.behaviour_distribution.confident * 100)}%</span>
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Overall Behavioral Score</span>
+                      <div className="text-3xl font-extrabold text-[#635BFF] tracking-tight mt-0.5">
+                        {result.behaviour_score}%
                       </div>
-                      <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                        <div className="bg-emerald-500 h-full rounded-full" style={{ width: `${Math.round(result.behaviour_distribution.confident * 100)}%` }}></div>
+                    </div>
+                    <span className={`text-xs font-bold px-3 py-1.5 rounded-full border ${getBadgeStyle(result.behaviour)}`}>
+                      {result.behaviour || 'Analyzed'}
+                    </span>
+                  </div>
+
+                  {/* Feature Breakdown Metrics Grid */}
+                  <div className="grid grid-cols-2 gap-3 text-xs">
+                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
+                      <span className="text-slate-400 font-semibold text-[11px]">Head Tilt Angle</span>
+                      <div className="font-bold text-slate-800 text-sm">
+                        {result.features?.head_tilt !== undefined ? `${result.features.head_tilt}°` : result.head_tilt || 'Normal'}
                       </div>
                     </div>
 
-                    <div>
-                      <div className="flex justify-between text-xs mb-1 font-semibold">
-                        <span className="text-amber-700">Nervous</span>
-                        <span className="text-slate-900">{Math.round(result.behaviour_distribution.nervous * 100)}%</span>
-                      </div>
-                      <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                        <div className="bg-amber-500 h-full rounded-full" style={{ width: `${Math.round(result.behaviour_distribution.nervous * 100)}%` }}></div>
+                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
+                      <span className="text-slate-400 font-semibold text-[11px]">Spine Alignment</span>
+                      <div className="font-bold text-slate-800 text-sm">
+                        {result.features?.spine_alignment !== undefined ? `${result.features.spine_alignment}°` : 'Upright'}
                       </div>
                     </div>
 
-                    <div>
-                      <div className="flex justify-between text-xs mb-1 font-semibold">
-                        <span className="text-rose-700">Distracted</span>
-                        <span className="text-slate-900">{Math.round(result.behaviour_distribution.distracted * 100)}%</span>
+                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
+                      <span className="text-slate-400 font-semibold text-[11px]">Eye Contact Proxy</span>
+                      <div className="font-bold text-slate-800 text-sm">
+                        {result.features?.eye_contact_proxy || result.eye_contact || 'Maintained'}
                       </div>
-                      <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                        <div className="bg-rose-500 h-full rounded-full" style={{ width: `${Math.round(result.behaviour_distribution.distracted * 100)}%` }}></div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
+                      <span className="text-slate-400 font-semibold text-[11px]">Shoulder Tension</span>
+                      <div className="font-bold text-slate-800 text-sm">
+                        {result.features?.shoulder_tension || 'Relaxed'}
                       </div>
                     </div>
                   </div>
+
+                  {/* Summary Callout */}
+                  {result.summary && (
+                    <div className="p-3.5 rounded-xl bg-indigo-50/60 border border-indigo-100 text-xs text-indigo-900 leading-relaxed font-medium">
+                      <span className="font-bold">AI Assessment: </span>
+                      {result.summary}
+                    </div>
+                  )}
+
+                </div>
+              ) : (
+                <div className="text-xs text-slate-400 text-center py-4">
+                  Select an image or video on the left to inspect detailed posture keypoints.
                 </div>
               )}
 
             </div>
-          ) : (
-            <div className="bg-white p-10 rounded-2xl text-center border-2 border-dashed border-slate-200 shadow-card flex flex-col items-center justify-center min-h-[420px]">
-              <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-4 text-blue-600">
-                <Video className="w-7 h-7" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 mb-1">No Media Analyzed Yet</h3>
-              <p className="text-xs text-slate-500 max-w-xs leading-relaxed">
-                Upload a mock interview image or video on the left to extract skeletal keypoints and non-verbal posture metrics.
-              </p>
-            </div>
-          )}
+          </div>
+
         </div>
 
       </div>

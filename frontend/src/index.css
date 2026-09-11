@@ -5,42 +5,53 @@
 @layer base {
   body {
     background-color: #F8FAFC;
-    color: #111827;
+    color: #0F172A;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
   }
 }
 
 @layer utilities {
-  .card-light {
-    background-color: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+  .app-container {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
-  .card-light-hover {
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  @media (min-width: 640px) {
+    .app-container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
   }
 
-  .card-light-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.06), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
-    border-color: #CBD5E1;
+  @media (min-width: 1024px) {
+    .app-container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .shadow-card {
+    box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
+  }
+
+  .shadow-card-hover {
+    box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
   }
 
   .text-brand-gradient {
-    background: linear-gradient(135deg, #635BFF 0%, #7C3AED 50%, #2563EB 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .text-gradient-subtle {
-    background: linear-gradient(135deg, #111827 0%, #475569 100%);
+    background: linear-gradient(135deg, #635BFF 0%, #4F46E5 50%, #3B82F6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 }
 
-/* Custom Styled Range Slider */
+/* Range Slider Custom Styling */
 input[type="range"] {
   accent-color: #635BFF;
 }
@@ -88,3 +99,4 @@ input[type="range"]::-webkit-slider-thumb:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
+
