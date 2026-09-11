@@ -43,13 +43,25 @@ export default function RegisterPage({ onSwitchToLogin, onBackToLanding }) {
       {/* Header */}
       <header className="py-6 border-b border-slate-200/80 bg-white">
         <div className="app-container flex items-center justify-between">
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={onBackToLanding}>
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 text-[#635BFF] shadow-sm">
-              <BrainCircuit className="w-5 h-5" />
+          <div className="flex items-center space-x-3 cursor-pointer group" onClick={onBackToLanding}>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#635BFF] to-[#3B82F6] p-0.5 shadow-md shadow-indigo-500/20 group-hover:shadow-indigo-500/35 transition-all">
+              <div className="w-full h-full bg-white rounded-[10px] flex items-center justify-center text-[#635BFF] group-hover:text-[#4F46E5] transition-colors">
+                <BrainCircuit className="w-5 h-5" />
+              </div>
             </div>
-            <span className="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900">
-              Placement<span className="text-[#635BFF]">Mentor</span>
-            </span>
+            <div>
+              <div className="flex items-center space-x-2">
+                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900">
+                  Placement<span className="text-[#635BFF]">Mentor</span>
+                </span>
+                <span className="text-[10px] font-extrabold tracking-widest uppercase px-2 py-0.5 rounded-md bg-indigo-50 text-[#635BFF] border border-indigo-100/80">
+                  AI PLATFORM
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
+                Dual-Engine Readiness Evaluator
+              </p>
+            </div>
           </div>
 
           {onBackToLanding && (
